@@ -243,3 +243,34 @@ tuyo:[
 ["Si pudiera escribirte una sola línea ahora mismo sería: ven, te abrazo. ❤️","Sobrellevad los unos las cargas de los otros.","Gálatas 6:2"]
 ]};
 Object.keys(moreVariety).forEach(k=>messages[k].items.push(...moreVariety[k]));
+
+/* PAU_SUPPORT_MODE */
+const pauSupport={
+feliz:"Pau, disfruta este momento bonito y date permiso de sonreír.",
+triste:"Pau, no tienes que fingir que estás bien. Date permiso de sentir.",
+ansiosa:"Pau, respira despacio. No tienes que resolver todo al mismo tiempo.",
+cansada:"Pau, descansar también es cuidarte. No tienes que poder con todo.",
+enojada:"Pau, está bien sentir enojo. Date un momento antes de reaccionar.",
+sola:"Pau, si necesitas compañía, pedirla está bien. No tienes que cargar sola.",
+orgullosa:"Pau, reconoce tus avances. Tu esfuerzo también merece ser celebrado.",
+amor:"Pau, recuerda que mereces respeto, apoyo y cariño sincero.",
+llorar:"Pau, si necesitas llorar, hazlo. No tienes que esconder lo que sientes.",
+abrumada:"Pau, una cosa a la vez. No tienes que resolverlo todo hoy.",
+miedo:"Pau, tener miedo no significa que no puedas avanzar. Ve paso a paso.",
+pensando:"Pau, tu mente también necesita descanso. No todo pensamiento necesita respuesta.",
+enamorada:"Pau, disfruta lo bonito con calma y sin olvidarte de cuidarte.",
+atencion:"Pau, si necesitas atención o compañía, puedes pedirla.",
+celebrar:"Pau, celebra lo bueno de hoy, incluso si parece pequeño.",
+dormir:"Pau, deja por hoy lo que pueda esperar. Tu cuerpo necesita descansar.",
+paz:"Pau, busca unos minutos de calma y respira sin prisa.",
+tuyo:"Pau, este pequeño mensaje está aquí para recordarte que cuentas con apoyo."
+};
+Object.keys(pauSupport).forEach(k=>{
+ if(messages[k]){
+   messages[k].items=messages[k].items.map((x,i)=>[
+     pauSupport[k]+" "+x[0].replace(/mi amor|todo mi amor|quererte|amarte|amor de mi vida|mi vida/gi,"tu bienestar"),
+     x[1],x[2]
+   ]);
+ }
+});
+document.title="Para Pau 🌷";
