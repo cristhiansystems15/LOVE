@@ -63,3 +63,13 @@ body.night .diary-entry p{color:var(--muted)}
 .diary-entry.open .diary-date{padding-bottom:8px}
 .diary-entry:after{display:none!important}
 .diary-content p{display:block!important}
+
+/* Contacto de apoyo */
+.support-contact{margin-bottom:70px;text-align:center;overflow:hidden}
+.support-contact h2{margin:8px auto 14px;line-height:1.15}
+.support-contact>p.center{max-width:900px;margin:0 auto 24px;line-height:1.7}
+.support-number{display:block;margin:8px auto 22px;color:var(--tulip-dark);font-size:1.15rem;line-height:1.5}
+.support-number strong{font-size:1.2rem;letter-spacing:.03em}
+.contact-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;position:relative;z-index:2}
+.contact-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-width:125px;padding:12px 20px!important;line-height:1.2;white-space:nowrap}
+@media(max-width:500px){.support-contact{padding:30px 18px}.support-contact h2{font-size:2.2rem}.support-number{margin-bottom:20px}.contact-actions{gap:9px}.contact-btn{min-width:115px}}
