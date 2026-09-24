@@ -57,3 +57,77 @@ messages.amor.items.push(
 ["Guarda este mensaje para esos días en los que necesites una prueba sencilla de mi cariño: te quiero muchísimo. ❤️","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"]
 );
 let current=null,index=0;const $=id=>document.getElementById(id);function render(){const x=messages[current].items[index];$('label').textContent=messages[current].label;$('phrase').textContent=x[0];$('verse').textContent='“'+x[1]+'”';$('reference').textContent=x[2];$('another').hidden=false}function show(k){current=k;index=0;render()}document.querySelectorAll('[data-emotion]').forEach(b=>b.onclick=()=>show(b.dataset.emotion));$('another').onclick=()=>{index=(index+1)%messages[current].items.length;render()};$('surprise').onclick=()=>{const k=Object.keys(messages);show(k[Math.floor(Math.random()*k.length)]);document.querySelector('.message').scrollIntoView({behavior:'smooth',block:'center'})};
+const extraMessages={
+llorar:{label:"Llora si lo necesitas",items:[
+["Si necesitas llorar, llora. No tienes que esconder lo que sientes. Después de la lluvia también vuelve la calma.","Echa sobre Jehová tu carga, y él te sustentará.","Salmos 55:22"],
+["No quiero que te sientas mal por sentir mucho. Tu corazón también merece espacio para soltar.","Jehová está cerca de los quebrantados de corazón.","Salmos 34:18"]]},
+abrumada:{label:"Vamos despacio",items:[
+["No tienes que cargar todo al mismo tiempo. Una cosa, un respiro y un paso a la vez.","Todo tiene su tiempo.","Eclesiastés 3:1"],
+["Haz una pausa, mi amor. Lo urgente puede esperar unos minutos mientras vuelves a respirar.","En quietud y en confianza será vuestra fortaleza.","Isaías 30:15"]]},
+miedo:{label:"Estoy contigo",items:[
+["Aunque tengas miedo, no tienes que atravesar este momento sintiéndote sola. Respira y ve paso a paso.","No temas, porque yo estoy contigo.","Isaías 41:10"],
+["No necesitas saber exactamente qué pasará para dar el siguiente paso.","Cuando pases por las aguas, yo estaré contigo.","Isaías 43:2"]]},
+pensando:{label:"Apaga un poquito la mente",items:[
+["No todos los pensamientos necesitan una respuesta ahora. Algunos solo necesitan pasar.","Tú guardarás en completa paz a aquel cuyo pensamiento en ti persevera.","Isaías 26:3"],
+["Deja descansar tu mente por un momento. Mañana podrás volver a pensar con más calma.","Encomienda a Jehová tu camino, y confía en él.","Salmos 37:5"]]},
+enamorada:{label:"Qué bonito es sentir amor",items:[
+["Qué bonito saber que tu corazón está sintiendo algo tan especial. Disfrútalo sin miedo.","El amor nunca deja de ser.","1 Corintios 13:8"],
+["Si estás sonriendo mientras lees esto, entonces misión cumplida. ❤️","Amémonos unos a otros; porque el amor es de Dios.","1 Juan 4:7"]]},
+atencion:{label:"Ven, aquí estoy",items:[
+["Si hoy quieres un poquito de atención, considéralo concedido: este mensaje es solo para ti. 💕","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"],
+["Ven a buscar tu dosis de cariño. Te mando un abrazo, un beso y un poquito de mi corazón.","El amor es sufrido, es benigno.","1 Corintios 13:4"]]},
+celebrar:{label:"¡Celebremos!",items:[
+["Cuéntame todo aunque sea a través de este rincón. Tus alegrías también quiero celebrarlas contigo.","Gozaos con los que se gozan.","Romanos 12:15"],
+["Hoy merece una pequeña celebración. Sonríe y disfruta lo que conseguiste.","Este es el día que hizo Jehová.","Salmos 118:24"]]},
+dormir:{label:"Buenas noches, mi amor",items:[
+["Cierra los ojos. Deja el teléfono un poquito y permite que tu cuerpo descanse. Te mando un beso de buenas noches. 🌙","En paz me acostaré, y asimismo dormiré.","Salmos 4:8"],
+["No tienes que resolver nada esta noche. Mañana será otro día para intentarlo.","Él da a su amado el sueño.","Salmos 127:2"]]},
+paz:{label:"Un momento de calma",items:[
+["Inhala despacio, exhala lento. Quédate aquí unos segundos. No hay prisa.","Estad quietos, y conoced que yo soy Dios.","Salmos 46:10"],
+["Que este pequeño rincón sea una pausa bonita dentro de tu día.","La paz os dejo, mi paz os doy.","Juan 14:27"]]},
+tuyo:{label:"Algo escrito pensando en ti",items:[
+["Si llegaste hasta aquí porque querías leer algo mío, entonces quiero que leas esto: te quiero y me importa cómo estás. ❤️","Dios es amor.","1 Juan 4:8"],
+["No sé qué estabas sintiendo cuando abriste esta página, pero sí sé algo: mereces palabras bonitas y cariño sincero.","Amémonos unos a otros.","1 Juan 4:7"]]}
+};
+Object.assign(messages,extraMessages);
+
+const reasons=[
+"Porque tu forma de ser tiene algo que no encuentro en nadie más.","Porque me gusta verte sonreír.","Porque incluso tus pequeños detalles pueden alegrarme el día.","Porque eres una persona que merece ser querida bonito.","Porque me encanta escucharte.","Porque tu existencia hace mi mundo un poquito más especial.","Porque tienes una forma única de mirar las cosas.","Porque me gusta compartir momentos contigo.","Porque admiro muchas cosas de ti.","Porque quiero estar presente también en tus días difíciles.","Porque tus sonrisas se me quedan en la memoria.","Porque me haces valorar los pequeños momentos.","Porque eres importante para mí.","Porque contigo puedo disfrutar de lo sencillo.","Porque me encanta cuando te emocionas por algo.","Porque mereces saber cuánto vales.","Porque me gusta conocer cada versión de ti.","Porque quiero celebrar tus logros contigo.","Porque me importa tu tranquilidad.","Porque tu felicidad también me alegra.","Porque me gusta hacerte sentir especial.","Porque hay conversaciones contigo que quisiera repetir.","Porque tus ocurrencias me hacen sonreír.","Porque me gusta la confianza que construimos.","Porque eres tú, y eso ya es una razón enorme.","Porque tu cariño significa mucho para mí.","Porque me gusta cuando me buscas para contarme algo.","Porque tus pequeños gestos dicen muchísimo.","Porque quiero que tengas un lugar donde sentirte querida.","Porque me nace cuidarte.","Porque me gusta imaginar futuros recuerdos contigo.","Porque me encanta cuando eres auténtica.","Porque admiro tu manera de seguir adelante.","Porque tus abrazos tienen un lugar especial en mi corazón.","Porque me gusta compartir risas contigo.","Porque quiero acompañarte en tus sueños.","Porque tus palabras pueden cambiar mi día.","Porque me importan tus emociones.","Porque me gusta verte crecer.","Porque eres parte de mis pensamientos bonitos.","Porque me gusta cuando hacemos cualquier cosa y termina siendo un buen recuerdo.","Porque contigo hasta lo cotidiano puede sentirse especial.","Porque quiero que nunca olvides que vales muchísimo.","Porque me encanta tu manera de querer.","Porque me gusta descubrir nuevas cosas de ti.","Porque quiero ser refugio y compañía cuando me necesites.","Porque tus alegrías merecen celebración.","Porque tus días malos no cambian lo que siento por ti.","Porque me gusta tenerte en mi vida.","Porque eres una historia que quiero seguir conociendo.","Porque me haces sonreír sin darte cuenta.","Porque me gustan tus mensajes inesperados.","Porque me encanta cuando te ríes de verdad.","Porque tus sueños me importan.","Porque quiero verte cumplirlos.","Porque me gusta escucharte hablar de lo que amas.","Porque tu presencia puede hacer especial un momento común.","Porque me gusta aprender de ti.","Porque me importa que estés bien.","Porque quiero que tengas paz.","Porque me encanta tu ternura.","Porque admiro tu valentía.","Porque me gusta tu forma de expresarte.","Porque quiero llenar tus días de recuerdos bonitos.","Porque me gusta cuando me haces sentir cerca aunque estemos lejos.","Porque cada día puedo descubrir otra razón.","Porque no necesito una ocasión especial para quererte.","Porque tu corazón merece cuidado.","Porque me gusta darte cariño.","Porque me gusta recibir el tuyo.","Porque contigo puedo reírme de cosas simples.","Porque me gusta cuando celebramos juntos.","Porque también quiero acompañarte cuando estés triste.","Porque me importan tus pequeños triunfos.","Porque me gusta recordarte que eres capaz.","Porque quiero que te sientas segura de tu valor.","Porque me gusta cuando eres espontánea.","Porque tu esencia es irrepetible.","Porque me encanta que tengas tus propias ideas.","Porque quiero conocer más de tus historias.","Porque tus recuerdos forman parte de quien eres.","Porque me gusta crear nuevos recuerdos contigo.","Porque me haces pensar en cosas bonitas.","Porque me gusta verte disfrutar.","Porque quiero proteger nuestros momentos especiales.","Porque me gusta cuando me cuentas cómo fue tu día.","Porque tus emociones importan.","Porque quiero ser alguien con quien puedas contar.","Porque me gusta hacerte reír.","Porque quiero que tengas un rincón al que puedas volver.","Porque este pequeño sitio existe por ti.","Porque me inspiraste a crear algo bonito.","Porque cada detalle de esta página lleva un poquito de cariño.","Porque me gusta imaginar tu reacción al leer esto.","Porque quiero sorprenderte de vez en cuando.","Porque me gusta recordarte que eres querida.","Porque hay muchísimo más que podría escribir.","Porque siempre encuentro un nuevo detalle que apreciar.","Porque me gusta la persona que eres hoy.","Porque quiero conocer también la persona en la que te convertirás.","Porque me importas de verdad.","Porque simplemente... eres tú. ❤️"
+];
+
+const personal=[
+"Si hoy estás leyendo esto, quiero que sepas que pensé en ti mientras lo hacía. ❤️",
+"Cuando tengas un día bonito, quiero que recuerdes compartir un poquito de esa alegría conmigo.",
+"Cuando tengas un día difícil, no quiero que sientas que tienes que esconderlo.",
+"Si pudiera aparecer en este momento, probablemente primero te daría un abrazo.",
+"Gracias por dejarme formar parte de tu historia.",
+"Espero que este rincón siempre te saque aunque sea una pequeña sonrisa.",
+"Quiero que encuentres aquí un lugar tranquilo cuando necesites cariño.",
+"Y si alguna vez olvidas lo especial que eres, vuelve a leer cualquiera de estas palabras. 💕"
+];
+
+const daily=[
+"Hoy quiero recordarte algo sencillo: no tienes que ser perfecta para ser profundamente querida.",
+"Mi mensaje de hoy para ti: respira, sonríe si puedes y recuerda que hay alguien pensando bonito en ti.",
+"Hoy también eres suficiente. No necesitas hacer más para merecer cariño.",
+"Que hoy encuentres una razón pequeña para sonreír y otra para sentirte orgullosa de ti.",
+"Si el día se pone pesado, vuelve aquí. Este rincón siempre tendrá una palabra bonita para ti.",
+"Hoy te mando un abrazo de esos que duran un poquito más de lo normal. 🫂",
+"Tu valor no cambia según cómo haya salido tu día. Nunca lo olvides.",
+"Hoy quiero que seas amable contigo misma. También mereces el cariño que das a los demás.",
+"Hay días para avanzar y días para descansar. Ambos cuentan.",
+"Mi carta del día: te quiero, te admiro y deseo que tengas paz en tu corazón. ❤️"
+];
+
+const hugTexts=["Abrazo recibido. 🫂❤️","Si pudiera, te abrazaría ahora mismo y no te soltaría todavía.","Un abrazo largo, suave y solo para ti. 💕","Imagina mis brazos alrededor de ti. Respira. Ya estás acompañada.","Abrazo virtual enviado con muchísimo cariño. 🫂"];
+let reasonIndex=0;
+document.getElementById("enter").onclick=()=>{document.getElementById("welcome").classList.add("hide");localStorage.setItem("loveVisited","1")};
+if(localStorage.getItem("loveVisited"))document.getElementById("welcome").classList.add("hide");
+document.getElementById("night").onclick=()=>{document.body.classList.toggle("night");localStorage.setItem("loveNight",document.body.classList.contains("night")?"1":"0")};
+if(localStorage.getItem("loveNight")==="1")document.body.classList.add("night");
+document.getElementById("hug").onclick=()=>{document.getElementById("hugResult").textContent=hugTexts[Math.floor(Math.random()*hugTexts.length)]};
+function showReason(){reasonIndex=Math.floor(Math.random()*reasons.length);document.getElementById("reason").textContent=reasons[reasonIndex];document.getElementById("reasonCount").textContent=(reasonIndex+1)+" / 100";}document.getElementById("reasonBtn").onclick=showReason;
+function updateDays(){const d=localStorage.getItem("loveDate");if(!d)return;const start=new Date(d+"T00:00:00");const now=new Date();const days=Math.max(0,Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/86400000));document.getElementById("daysTogether").textContent=days+" días compartiendo esta historia ❤️"}const savedDate=localStorage.getItem("loveDate");if(savedDate)document.getElementById("loveDate").value=savedDate;document.getElementById("saveDate").onclick=()=>{const d=document.getElementById("loveDate").value;if(d){localStorage.setItem("loveDate",d);updateDays()}};updateDays();
+document.getElementById("dailyLetter").textContent=daily[new Date().getDate()%daily.length];document.getElementById("newLetter").onclick=()=>{let n=Math.floor(Math.random()*daily.length);document.getElementById("dailyLetter").textContent=daily[n]};
+document.getElementById("personalMessages").innerHTML=personal.map(x=>'<div class="personal-card">❤️ '+x+'</div>').join("");
+document.getElementById("photoInput").onchange=e=>{const box=document.getElementById("memories");[...e.target.files].forEach(file=>{const reader=new FileReader();reader.onload=ev=>{const fig=document.createElement("figure");fig.className="memory";fig.innerHTML='<img alt="Recuerdo" src="'+ev.target.result+'"><figcaption>Un momento bonito ❤️</figcaption>';box.appendChild(fig)};reader.readAsDataURL(file)})};
