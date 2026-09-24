@@ -21,4 +21,34 @@
 <section class="panel feature"><div class="section-kicker">Palabras de apoyo</div><h2>Cuando necesites un poquito de ánimo</h2><div id="personalMessages" class="personal-grid"></div></section>
 <section class="panel feature diary-section"><div class="section-kicker">Un espacio solo para ti</div><h2>📖 Diario de Pau</h2><p class="center">Escribe lo que quieras: cómo fue tu día, algo que te preocupa, algo bonito o simplemente lo que tengas en la cabeza.</p><div class="diary-form"><input id="diaryTitle" type="text" maxlength="80" placeholder="Título de hoy (opcional)"><textarea id="diaryText" maxlength="3000" placeholder="Escribe aquí lo que quieras contar..."></textarea><div class="diary-actions"><button id="saveDiary" class="primary">🌷 Guardar en mi diario</button><button id="clearDiary" class="secondary">Limpiar</button></div></div><div id="diaryEntries" class="diary-entries"></div></section>
 <section class="panel letter"><h2>Unas palabras para ti 🌷</h2><p>No hace falta que estés feliz todo el tiempo. Hay días para avanzar, días para descansar, días para llorar y días para celebrar.</p><p><b>Si algún día necesitas una palabra de ánimo, un momento de calma o simplemente recordar que tu esfuerzo vale, vuelve aquí.</b></p><p>Cuídate mucho, Pau. Y no olvides que quien cuida a los demás también merece ser cuidado.</p><div class="signature">Con mucho aprecio 🌷</div></section>
-</main><script src="script.js"></script></body></html>
+</main><script src="script.js"></script><script>
+(function(){
+  var welcome=document.getElementById("welcome");
+  var enter=document.getElementById("enter");
+  if(welcome) welcome.classList.remove("hide");
+  if(enter) enter.onclick=function(){ if(welcome) welcome.classList.add("hide"); };
+  var key="pauDiaryEntries";
+  function read(){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return[]}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]})}
+  function render(){
+    var box=document.getElementById("diaryEntries"); if(!box)return;
+    var a=read();
+    box.innerHTML=a.length?a.map(function(e,i){return '<article class="diary-entry"><div class="diary-entry-head"><strong>'+esc(e.title||"Sin título")+'</strong><small>'+esc(e.date)+'</small></div><p>'+esc(e.text).replace(/\n/g,"<br>")+'</p><button type="button" class="diary-delete" data-i="'+i+'">🗑️ Eliminar</button></article>'}).join(""):'<div class="diary-empty">🌷 Tu diario está esperando tus primeras palabras.</div>';
+    box.querySelectorAll(".diary-delete").forEach(function(b){b.onclick=function(){var a=read();a.splice(Number(b.dataset.i),1);localStorage.setItem(key,JSON.stringify(a));render()}})
+  }
+  function init(){
+    var save=document.getElementById("saveDiary"), clear=document.getElementById("clearDiary");
+    if(save){save.onclick=function(){
+      var text=document.getElementById("diaryText").value.trim(), title=document.getElementById("diaryTitle").value.trim();
+      if(!text){document.getElementById("diaryText").focus();return}
+      var a=read();a.unshift({title:title,text:text,date:new Date().toLocaleString("es-HN")});
+      try{localStorage.setItem(key,JSON.stringify(a))}catch(e){alert("El navegador no permite guardar el diario.");return}
+      document.getElementById("diaryTitle").value="";document.getElementById("diaryText").value="";render();
+    }}
+    if(clear)clear.onclick=function(){document.getElementById("diaryTitle").value="";document.getElementById("diaryText").value=""};
+    render();
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body></html>
