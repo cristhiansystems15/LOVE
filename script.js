@@ -297,3 +297,30 @@ function cleanPauCollection(v){
 if(typeof reasons!=="undefined") reasons=cleanPauCollection(reasons);
 if(typeof personal!=="undefined") personal=cleanPauCollection(personal);
 if(typeof daily!=="undefined") daily=cleanPauCollection(daily);
+
+/* PAU_DIARY */
+const diaryKey="pauDiaryEntries";
+function getDiary(){try{return JSON.parse(localStorage.getItem(diaryKey)||"[]")}catch(e){return[]}}
+function renderDiary(){
+ const box=document.getElementById("diaryEntries"); if(!box)return;
+ const entries=getDiary();
+ box.innerHTML=entries.length?entries.map((e,i)=>`<article class="diary-entry"><div class="diary-entry-head"><strong>${escapeDiary(e.title||"Sin título")}</strong><small>${escapeDiary(e.date)}</small></div><p>${escapeDiary(e.text).replace(/\n/g,"<br>")}</p><button class="diary-delete" data-index="${i}">🗑️ Eliminar</button></article>`).join(""):'<div class="diary-empty">🌷 Tu diario está esperando tus primeras palabras.</div>';
+ box.querySelectorAll(".diary-delete").forEach(b=>b.onclick=()=>{const a=getDiary();a.splice(Number(b.dataset.index),1);localStorage.setItem(diaryKey,JSON.stringify(a));renderDiary()});
+}
+function escapeDiary(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+document.getElementById("saveDiary").onclick=()=>{
+ const title=document.getElementById("diaryTitle").value.trim();
+ const text=document.getElementById("diaryText").value.trim();
+ if(!text){alert("Escribe algo antes de guardar 🌷");return}
+ const a=getDiary();
+ a.unshift({title,text,date:new Date().toLocaleString("es-HN",{dateStyle:"medium",timeStyle:"short"})});
+ localStorage.setItem(diaryKey,JSON.stringify(a));
+ document.getElementById("diaryTitle").value="";
+ document.getElementById("diaryText").value="";
+ renderDiary();
+};
+document.getElementById("clearDiary").onclick=()=>{
+ document.getElementById("diaryTitle").value="";
+ document.getElementById("diaryText").value="";
+};
+renderDiary();
