@@ -265,7 +265,10 @@ if(localStorage.getItem("loveNight")==="1")document.body.classList.add("night");
 document.getElementById("hug").onclick=()=>{document.getElementById("hugResult").textContent=hugTexts[Math.floor(Math.random()*hugTexts.length)]};
 function showReason(){reasonIndex=Math.floor(Math.random()*reasons.length);document.getElementById("reason").textContent=reasons[reasonIndex];document.getElementById("reasonCount").textContent=(reasonIndex+1)+" / 100";}document.getElementById("reasonBtn").onclick=showReason;
 const dailyLetter=document.querySelector(".daily-letter");if(dailyLetter){dailyLetter.textContent=daily[new Date().getDate()%daily.length];document.getElementById("newLetter").onclick=()=>{let n=Math.floor(Math.random()*daily.length);dailyLetter.textContent=daily[n]};}
-document.getElementById("personalMessages").innerHTML=personal.map(x=>'<div class="personal-card">❤️ '+x+'</div>').join("");
+const personalMessagesBox=document.getElementById("personalMessages");
+if(personalMessagesBox&&typeof personal!=="undefined"){
+  personalMessagesBox.innerHTML=personal.map(x=>'<div class="personal-card">🌷 '+x+'</div>').join("");
+}
 const moreVariety={
 feliz:[
 ["Qué lindo que hoy tengas un motivo para sonreír. Guarda esta sensación y disfrútala sin prisa. 🌸","Servid a Jehová con alegría.","Salmos 100:2"],
