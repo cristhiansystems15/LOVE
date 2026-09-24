@@ -53,3 +53,13 @@ body.night .diary-entry p{color:var(--muted)}
 .diary-entry.open .diary-delete{display:inline-block}
 .diary-entry:after{content:"🌷 Abrir entrada";display:block;margin-top:10px;color:var(--tulip-dark);font-size:.78rem;font-weight:700}
 .diary-entry.open:after{content:"🌷 Cerrar entrada"}
+
+.diary-entry{padding:0;overflow:hidden}
+.diary-title{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--tulip-dark);font:600 1.05rem Inter,Arial;padding:18px 20px;cursor:pointer}
+.diary-title:hover{text-decoration:underline}
+.diary-date{display:block;padding:0 20px 16px;color:var(--muted);font-size:.72rem}
+.diary-content{display:none;padding:0 20px 20px}
+.diary-entry.open .diary-content{display:block}
+.diary-entry.open .diary-date{padding-bottom:8px}
+.diary-entry:after{display:none!important}
+.diary-content p{display:block!important}
