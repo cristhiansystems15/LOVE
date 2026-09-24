@@ -131,3 +131,115 @@ function updateDays(){const d=localStorage.getItem("loveDate");if(!d)return;cons
 document.getElementById("dailyLetter").textContent=daily[new Date().getDate()%daily.length];document.getElementById("newLetter").onclick=()=>{let n=Math.floor(Math.random()*daily.length);document.getElementById("dailyLetter").textContent=daily[n]};
 document.getElementById("personalMessages").innerHTML=personal.map(x=>'<div class="personal-card">❤️ '+x+'</div>').join("");
 document.getElementById("photoInput").onchange=e=>{const box=document.getElementById("memories");[...e.target.files].forEach(file=>{const reader=new FileReader();reader.onload=ev=>{const fig=document.createElement("figure");fig.className="memory";fig.innerHTML='<img alt="Recuerdo" src="'+ev.target.result+'"><figcaption>Un momento bonito ❤️</figcaption>';box.appendChild(fig)};reader.readAsDataURL(file)})};
+
+const moreVariety={
+feliz:[
+["Qué lindo que hoy tengas un motivo para sonreír. Guarda esta sensación y disfrútala sin prisa. 🌸","Servid a Jehová con alegría.","Salmos 100:2"],
+["Tu alegría es contagiosa. Ojalá hoy recibas muchas razones para seguir sonriendo.","El corazón alegre alegra el rostro.","Proverbios 15:13"],
+["Hoy quiero celebrar tu sonrisa, tus pequeños triunfos y todo lo bonito que llevas dentro.","Alégrense todos los que en ti confían.","Salmos 5:11"],
+["Que este momento feliz se quede un poquito más contigo. Te mereces disfrutarlo.","Me mostrarás la senda de la vida; en tu presencia hay plenitud de gozo.","Salmos 16:11"],
+["Sonríe, mi amor. A veces una pequeña alegría es exactamente lo que el corazón necesitaba.","La alegría del corazón hermosea el rostro.","Proverbios 15:13"]],
+triste:[
+["No tienes que apresurarte para estar bien. Date permiso de sanar a tu propio ritmo.","Él sana a los quebrantados de corazón.","Salmos 147:3"],
+["Si hoy el mundo se siente gris, recuerda que no todos los días serán iguales.","Por la noche durará el lloro, y a la mañana vendrá la alegría.","Salmos 30:5"],
+["Puedes descansar en mis palabras por un momento. No tienes que cargar sola con todo.","Echa sobre Jehová tu carga, y él te sustentará.","Salmos 55:22"],
+["Tu tristeza no borra ninguna de las cosas hermosas que hay en ti.","Jehová sostiene a todos los que caen.","Salmos 145:14"],
+["Te mando un abrazo para ese corazón que hoy necesita un poquito más de ternura. 🫂","Cercano está Jehová a los quebrantados de corazón.","Salmos 34:18"]],
+ansiosa:[
+["Mira solo el siguiente paso, no toda la escalera. Poco a poco, mi amor.","Confía en Jehová con todo tu corazón.","Proverbios 3:5"],
+["Deja por un instante aquello que no puedes controlar. Ahora mismo solo necesitas respirar.","Encomienda a Jehová tus obras, y tus pensamientos serán afirmados.","Proverbios 16:3"],
+["Tu mente puede estar haciendo mucho ruido, pero tú puedes elegir ir despacio.","Tú guardarás en completa paz a aquel cuyo pensamiento en ti persevera.","Isaías 26:3"],
+["No tienes que resolver el futuro esta noche. Quédate en el presente.","No os afanéis por el día de mañana.","Mateo 6:34"],
+["Respira conmigo: entra calma, sale tensión. Un momento a la vez. 🌷","El Señor es mi luz y mi salvación; ¿de quién temeré?","Salmos 27:1"]],
+cansada:[
+["Tu cuerpo también habla. Si pide descanso, escúchalo con cariño.","En Dios solamente está acallada mi alma.","Salmos 62:1"],
+["Hoy puedes bajar el ritmo. No eres menos valiosa por necesitar una pausa.","Venid a mí todos los que estáis trabajados y cargados.","Mateo 11:28"],
+["Déjate descansar sin culpa. Mañana habrá nuevas oportunidades.","Cada día trae su propio afán.","Mateo 6:34"],
+["Te mando un abrazo tranquilo para que recuerdes que también mereces ser cuidada.","Jehová es mi pastor; nada me faltará.","Salmos 23:1"],
+["A veces la mejor forma de continuar es detenerse un momento.","Mi presencia irá contigo, y te daré descanso.","Éxodo 33:14"]],
+enojada:[
+["Puedes sentir enojo y aun así elegir cuidar tus palabras y tu corazón.","La blanda respuesta quita la ira.","Proverbios 15:1"],
+["Espera un poquito antes de reaccionar. Tu tranquilidad vale más que una respuesta inmediata.","El que tarda en airarse es grande de entendimiento.","Proverbios 14:29"],
+["Si algo te dolió, también mereces expresarlo cuando estés más tranquila.","Todo hombre sea pronto para oír, tardo para hablar.","Santiago 1:19"],
+["No dejes que un momento de enojo decida por ti. Respira primero.","Mejor es el que tarda en airarse que el fuerte.","Proverbios 16:32"],
+["Aquí tienes un recordatorio: puedes poner límites y también conservar tu paz.","Seguid la paz con todos.","Hebreos 12:14"]],
+sola:[
+["Si hoy necesitas compañía, imagina que me siento a tu lado y simplemente me quedo contigo.","Nunca te dejaré, ni te desampararé.","Hebreos 13:5"],
+["No necesitas tener algo importante que decir. También podemos compartir silencio.","Yo estoy con vosotros todos los días.","Mateo 28:20"],
+["Tu corazón merece sentirse acompañado y escuchado.","Dios es nuestro amparo y nuestra fuerza.","Salmos 46:1"],
+["Si pudiera estar ahí, te prepararía un abrazo enorme y me quedaría un ratito contigo.","Echa sobre Jehová tu carga.","Salmos 55:22"],
+["Que estas palabras llenen aunque sea un poquito ese espacio que hoy se siente vacío.","Jehová está cerca de todos los que le invocan.","Salmos 145:18"]],
+orgullosa:[
+["Mira todo lo que has conseguido y date el crédito que mereces. ✨","No nos cansemos de hacer bien.","Gálatas 6:9"],
+["Hay cosas que antes parecían imposibles y hoy forman parte de tu historia.","Todo lo puedo en Cristo que me fortalece.","Filipenses 4:13"],
+["Tu esfuerzo merece reconocimiento, incluso cuando nadie más lo ve.","Jehová recompensará tu obra.","Rut 2:12"],
+["Estoy feliz de verte avanzar a tu manera y a tu ritmo.","La senda de los justos es como la luz de la aurora.","Proverbios 4:18"],
+["Nunca olvides cuántas veces seguiste adelante aun cuando fue difícil.","Esforzaos y cobrad ánimo.","Salmos 31:24"]],
+amor:[
+["Si estás buscando una razón para sentirte querida, empieza por esta: eres profundamente especial para mí. ❤️","Dios es amor.","1 Juan 4:8"],
+["Te quiero en los días fáciles y también en los días en que necesitas un poco más de paciencia y cariño.","El amor todo lo sufre, todo lo cree, todo lo espera.","1 Corintios 13:7"],
+["No hay una hora perfecta para decirte que te quiero. Este momento es perfecto.","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"],
+["Quiero que cuando pienses en este rincón recuerdes una cosa: fue creado pensando en ti.","El amor nunca deja de ser.","1 Corintios 13:8"],
+["Te quiero por quien eres, no por lo que haces. Nunca olvides eso.","Amémonos unos a otros.","1 Juan 4:7"]],
+llorar:[
+["Si las lágrimas quieren salir, déjalas. A veces el corazón necesita soltar antes de sentirse ligero.","Los que sembraron con lágrimas, con regocijo segarán.","Salmos 126:5"],
+["No voy a pedirte que sonrías cuando necesitas llorar. Solo quiero que seas amable contigo.","Jehová oye cuando clamo a él.","Salmos 4:3"],
+["Llora todo lo que necesites y luego respira. Yo seguiría aquí contigo.","Tú cuentas mis pasos; pon mis lágrimas en tu redoma.","Salmos 56:8"],
+["Tus lágrimas no te hacen débil. También forman parte de tu historia.","Jehová enjugará toda lágrima.","Apocalipsis 21:4"],
+["Después de dejar salir lo que duele, date un poquito de descanso.","El llanto puede durar una noche, pero a la mañana vendrá la alegría.","Salmos 30:5"]],
+abrumada:[
+["No intentes ordenar toda tu vida en una sola tarde. Empieza por una sola cosa.","Todo tiene su tiempo.","Eclesiastés 3:1"],
+["Haz una lista mental de una sola prioridad y deja lo demás para después.","Encomienda a Jehová tus obras.","Proverbios 16:3"],
+["No estás fallando por sentirte sobrepasada. A veces simplemente llevamos demasiado encima.","Mi presencia irá contigo, y te daré descanso.","Éxodo 33:14"],
+["Pausa. Agua. Respiración. Una cosa a la vez. Eso también cuenta como avanzar.","Dios es nuestro amparo y nuestra fuerza.","Salmos 46:1"],
+["No tienes que hacerlo todo sola. Pedir ayuda también es una forma de cuidarte.","Sobrellevad los unos las cargas de los otros.","Gálatas 6:2"]],
+miedo:[
+["Puedes sentir miedo y aun así dar un pequeño paso. No tienes que sentirte valiente todo el tiempo.","No temas, porque yo estoy contigo.","Isaías 41:10"],
+["Mira a tu alrededor y vuelve al presente. Ahora mismo estás aquí, respirando.","Cuando pases por las aguas, yo estaré contigo.","Isaías 43:2"],
+["No dejes que lo que todavía no ha ocurrido robe toda tu paz de hoy.","No os afanéis por el día de mañana.","Mateo 6:34"],
+["Si necesitas detenerte, hazlo. Después podrás decidir el siguiente paso.","Espera en Jehová; esfuérzate, y aliéntese tu corazón.","Salmos 27:14"],
+["Te mando calma para ese momento en que el miedo parece hablar demasiado fuerte.","Jehová es mi luz y mi salvación; ¿de quién temeré?","Salmos 27:1"]],
+pensando:[
+["No necesitas encontrar una respuesta para cada pensamiento. Algunos pueden quedarse sin resolver por ahora.","Estad quietos, y conoced que yo soy Dios.","Salmos 46:10"],
+["Tu mente merece descanso también. Dale permiso de hacer una pausa.","En paz me acostaré, y asimismo dormiré.","Salmos 4:8"],
+["Cuando aparezca otro pensamiento, déjalo pasar y vuelve a tu respiración.","Tú guardarás en completa paz.","Isaías 26:3"],
+["No todo lo que imaginas va a suceder. Quédate con lo que sabes ahora.","Confía en Jehová con todo tu corazón.","Proverbios 3:5"],
+["Esta noche no necesitas resolver la vida. Solo necesitas descansar un poco.","Él da a su amado el sueño.","Salmos 127:2"]],
+enamorada:[
+["Disfruta esa sonrisa que aparece cuando piensas en alguien especial. 🥰","Las muchas aguas no podrán apagar el amor.","Cantares 8:7"],
+["Qué bonito cuando el corazón encuentra una persona que le hace ilusión.","El amor nunca deja de ser.","1 Corintios 13:8"],
+["Permítete disfrutar de lo bonito sin analizar cada detalle.","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"],
+["Si tu corazón está contento, hoy tenemos una razón más para sonreír.","Este es el día que hizo Jehová.","Salmos 118:24"],
+["El amor también vive en los pequeños detalles, en los mensajes y en las sonrisas.","Amémonos unos a otros.","1 Juan 4:7"]],
+atencion:[
+["Si viniste por cariño, aquí tienes un poquito: te mando un abrazo enorme. 🫂","Amados, amémonos unos a otros.","1 Juan 4:7"],
+["Hoy quiero que sientas que este mensaje fue escrito exclusivamente para ti.","El amor es sufrido, es benigno.","1 Corintios 13:4"],
+["Ven, quédate un ratito. No necesitas ninguna excusa para querer sentirte querida.","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"],
+["Te presto toda mi atención durante estas palabras: ¿cómo está ese corazón? ❤️","Sobrellevad los unos las cargas de los otros.","Gálatas 6:2"],
+["Un beso, un abrazo y un recordatorio: aquí hay alguien que te quiere muchísimo.","Dios es amor.","1 Juan 4:8"]],
+celebrar:[
+["¡Eso merece una sonrisa enorme! Me alegra que tengas algo bonito que celebrar. 🎉","Gozaos con los que se gozan.","Romanos 12:15"],
+["Guarda este momento en tu memoria. Las pequeñas victorias también cuentan muchísimo.","Este es el día que hizo Jehová.","Salmos 118:24"],
+["Hoy no vamos a pensar en lo que falta. Hoy toca disfrutar lo que lograste.","Regocijaos en el Señor siempre.","Filipenses 4:4"],
+["Estoy orgulloso de ti. Disfruta tu logro y date permiso de sentirte feliz.","Todo lo puedo en Cristo que me fortalece.","Filipenses 4:13"],
+["Que nunca te dé pena celebrar tus propias victorias. Te las has ganado.","Jehová ha hecho grandes cosas con nosotros; estaremos alegres.","Salmos 126:3"]],
+dormir:[
+["Deja el día donde pertenece: en el pasado. Ahora toca descansar.","En paz me acostaré, y asimismo dormiré.","Salmos 4:8"],
+["Cierra los ojos y suelta poquito a poquito las preocupaciones de hoy.","En paz me acostaré, y asimismo dormiré.","Salmos 4:8"],
+["Mañana tendrás otra oportunidad para continuar. Esta noche mereces descanso.","Él da a su amado el sueño.","Salmos 127:2"],
+["Que tu última sonrisa del día sea por este mensaje. Buenas noches, mi amor. 🌙","Yo me acosté y dormí, y desperté, porque Jehová me sustentaba.","Salmos 3:5"],
+["Descansa tranquila. No todo tiene que solucionarse antes de dormir.","Encomienda a Jehová tu camino, y confía en él.","Salmos 37:5"]],
+paz:[
+["Quédate aquí unos segundos. Nada más. Respira y deja que el momento sea tranquilo.","Estad quietos, y conoced que yo soy Dios.","Salmos 46:10"],
+["Que tu corazón encuentre hoy un lugar donde descansar.","La paz os dejo, mi paz os doy.","Juan 14:27"],
+["No persigas la calma; dale espacio para llegar poco a poco.","Tú guardarás en completa paz.","Isaías 26:3"],
+["Baja los hombros, respira y suelta un poquito de lo que pesa.","Jehová dará poder a su pueblo; Jehová bendecirá a su pueblo con paz.","Salmos 29:11"],
+["Que nada tenga que ser perfecto para que puedas sentir un poco de paz.","El Señor de paz os dé siempre paz en toda manera.","2 Tesalonicenses 3:16"]],
+tuyo:[
+["Querías leer algo mío, así que aquí va: me importas más de lo que muchas veces sé explicar con palabras.","Amémonos unos a otros.","1 Juan 4:7"],
+["Si hoy necesitabas una señal de cariño, toma esta como una: pensé en ti al escribirla.","Dios es amor.","1 Juan 4:8"],
+["No importa qué emoción elegiste antes. Mi mensaje sigue siendo el mismo: te quiero.","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"],
+["Este rincón puede cambiar de frases, pero hay algo que no cambia: el cariño con el que fue creado.","El amor nunca deja de ser.","1 Corintios 13:8"],
+["Si pudiera escribirte una sola línea ahora mismo sería: ven, te abrazo. ❤️","Sobrellevad los unos las cargas de los otros.","Gálatas 6:2"]
+]};
+Object.keys(moreVariety).forEach(k=>messages[k].items.push(...moreVariety[k]));
