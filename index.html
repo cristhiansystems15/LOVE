@@ -34,7 +34,7 @@
     var box=document.getElementById("diaryEntries"); if(!box)return;
     var a=read();
     box.innerHTML=a.length?a.map(function(e,i){return '<article class="diary-entry"><div class="diary-entry-head"><strong>'+esc(e.title||"Sin título")+'</strong><small>'+esc(e.date)+'</small></div><p>'+esc(e.text).replace(/\n/g,"<br>")+'</p><button type="button" class="diary-delete" data-i="'+i+'">🗑️ Eliminar</button></article>'}).join(""):'<div class="diary-empty">🌷 Tu diario está esperando tus primeras palabras.</div>';
-    box.querySelectorAll(".diary-delete").forEach(function(b){b.onclick=function(){var a=read();a.splice(Number(b.dataset.i),1);localStorage.setItem(key,JSON.stringify(a));render()}})
+    box.querySelectorAll(".diary-entry").forEach(function(card){card.onclick=function(e){if(e.target.classList.contains("diary-delete"))return;card.classList.toggle("open")}});box.querySelectorAll(".diary-delete").forEach(function(b){b.onclick=function(){var a=read();a.splice(Number(b.dataset.i),1);localStorage.setItem(key,JSON.stringify(a));render()}})
   }
   function init(){
     var save=document.getElementById("saveDiary"), clear=document.getElementById("clearDiary");
