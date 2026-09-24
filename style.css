@@ -28,3 +28,19 @@ body{background:radial-gradient(circle at 10% 5%,#ffe4ec,transparent 30%),radial
 .days{color:var(--tulip-dark)}
 body.night .hero:after{opacity:.9}
 @media(max-width:760px){.welcome-card:before{font-size:1rem}}
+
+.diary-section{text-align:center}
+.diary-form{max-width:780px;margin:24px auto 30px}
+.diary-form input,.diary-form textarea{width:100%;border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:#fff;color:var(--ink);font:inherit;margin-bottom:12px;outline:none}
+.diary-form textarea{min-height:180px;resize:vertical;line-height:1.7}
+.diary-form input:focus,.diary-form textarea:focus{border-color:var(--tulip)}
+.diary-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.diary-entries{display:grid;gap:14px;max-width:780px;margin:auto;text-align:left}
+.diary-entry{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
+.diary-entry-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;color:var(--tulip-dark)}
+.diary-entry-head small{color:var(--muted);font-size:.75rem}
+.diary-entry p{color:#654b56;line-height:1.75;margin:0 0 14px;white-space:normal}
+.diary-delete{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 12px;color:var(--muted);cursor:pointer}
+.diary-empty{padding:25px;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
+body.night .diary-form input,body.night .diary-form textarea,body.night .diary-entry,body.night .diary-delete{background:#24151e;color:var(--ink)}
+body.night .diary-entry p{color:var(--muted)}
