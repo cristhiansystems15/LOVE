@@ -44,3 +44,12 @@ body.night .hero:after{opacity:.9}
 .diary-empty{padding:25px;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
 body.night .diary-form input,body.night .diary-form textarea,body.night .diary-entry,body.night .diary-delete{background:#24151e;color:var(--ink)}
 body.night .diary-entry p{color:var(--muted)}
+
+.diary-entry{cursor:pointer;transition:.2s}
+.diary-entry:hover{transform:translateY(-2px);box-shadow:0 10px 25px #74304d12}
+.diary-entry p{display:none}
+.diary-entry.open p{display:block}
+.diary-entry .diary-delete{display:none}
+.diary-entry.open .diary-delete{display:inline-block}
+.diary-entry:after{content:"🌷 Abrir entrada";display:block;margin-top:10px;color:var(--tulip-dark);font-size:.78rem;font-weight:700}
+.diary-entry.open:after{content:"🌷 Cerrar entrada"}
