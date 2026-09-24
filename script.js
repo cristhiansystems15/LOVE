@@ -127,11 +127,8 @@ document.getElementById("night").onclick=()=>{document.body.classList.toggle("ni
 if(localStorage.getItem("loveNight")==="1")document.body.classList.add("night");
 document.getElementById("hug").onclick=()=>{document.getElementById("hugResult").textContent=hugTexts[Math.floor(Math.random()*hugTexts.length)]};
 function showReason(){reasonIndex=Math.floor(Math.random()*reasons.length);document.getElementById("reason").textContent=reasons[reasonIndex];document.getElementById("reasonCount").textContent=(reasonIndex+1)+" / 100";}document.getElementById("reasonBtn").onclick=showReason;
-function updateDays(){const d=localStorage.getItem("loveDate");if(!d)return;const start=new Date(d+"T00:00:00");const now=new Date();const days=Math.max(0,Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/86400000));document.getElementById("daysTogether").textContent=days+" días compartiendo esta historia ❤️"}const savedDate=localStorage.getItem("loveDate");if(savedDate)document.getElementById("loveDate").value=savedDate;document.getElementById("saveDate").onclick=()=>{const d=document.getElementById("loveDate").value;if(d){localStorage.setItem("loveDate",d);updateDays()}};updateDays();
 document.getElementById("dailyLetter").textContent=daily[new Date().getDate()%daily.length];document.getElementById("newLetter").onclick=()=>{let n=Math.floor(Math.random()*daily.length);document.getElementById("dailyLetter").textContent=daily[n]};
 document.getElementById("personalMessages").innerHTML=personal.map(x=>'<div class="personal-card">❤️ '+x+'</div>').join("");
-document.getElementById("photoInput").onchange=e=>{const box=document.getElementById("memories");[...e.target.files].forEach(file=>{const reader=new FileReader();reader.onload=ev=>{const fig=document.createElement("figure");fig.className="memory";fig.innerHTML='<img alt="Recuerdo" src="'+ev.target.result+'"><figcaption>Un momento bonito ❤️</figcaption>';box.appendChild(fig)};reader.readAsDataURL(file)})};
-
 const moreVariety={
 feliz:[
 ["Qué lindo que hoy tengas un motivo para sonreír. Guarda esta sensación y disfrútala sin prisa. 🌸","Servid a Jehová con alegría.","Salmos 100:2"],
