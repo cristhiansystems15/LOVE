@@ -274,3 +274,26 @@ Object.keys(pauSupport).forEach(k=>{
  }
 });
 document.title="Para Pau 🌷";
+/* PAU_FULL_SUPPORT_CLEANUP */
+function cleanPauText(v){
+ if(typeof v!=="string") return v;
+ return v
+ .replace(/mi amor/gi,"Pau")
+ .replace(/mi vida/gi,"Pau")
+ .replace(/todo mi amor/gi,"todo mi apoyo")
+ .replace(/con todo mi amor/gi,"con mucho aprecio")
+ .replace(/te quiero/gi,"cuentas con mi apoyo")
+ .replace(/quererte/gi,"apoyarte")
+ .replace(/amarte/gi,"apoyarte")
+ .replace(/verte feliz también me hace feliz/gi,"me alegra saber que estás bien")
+ .replace(/nuestro tiempo/gi,"este momento")
+ .replace(/nuestros recuerdos/gi,"tus recuerdos");
+}
+function cleanPauCollection(v){
+ if(Array.isArray(v)) return v.map(cleanPauCollection);
+ if(v&&typeof v==="object") return Object.fromEntries(Object.entries(v).map(([k,val])=>[k,cleanPauCollection(val)]));
+ return cleanPauText(v);
+}
+if(typeof reasons!=="undefined") reasons=cleanPauCollection(reasons);
+if(typeof personal!=="undefined") personal=cleanPauCollection(personal);
+if(typeof daily!=="undefined") daily=cleanPauCollection(daily);
