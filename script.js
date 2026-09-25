@@ -189,7 +189,7 @@ const reasons=[
   "Porque un pequeño detalle puede cambiar un día.",
   "Porque un tulipán también puede ser un recordatorio de algo bonito. 🌷",
   "Porque hoy puede ser un buen día para ser amable contigo.",
-  "Porque Pau, aunque hoy no lo sientas, tu esfuerzo vale.",
+  "Porque Pao, aunque hoy no lo sientas, tu esfuerzo vale.",
   "Porque siempre puedes darte otra oportunidad.",
   "Porque mereces apoyo, calma y cariño sincero."
 ];
@@ -206,7 +206,7 @@ const personal=[
 
 const daily=[
   "Hoy recuerda que no tienes que ser perfecta para estar orgullosa de ti.",
-  "Respira profundo, Pau. Un momento difícil no define todo tu día.",
+  "Respira profundo, Pao. Un momento difícil no define todo tu día.",
   "Hoy también mereces recibir el cariño y el apoyo que das a los demás.",
   "Si estás cansada, descansar no es rendirse.",
   "Tu esfuerzo diario tiene valor, incluso cuando nadie lo ve.",
@@ -253,7 +253,7 @@ const daily=[
   "Hay cosas bonitas que todavía pueden aparecer en tu camino.",
   "Un pequeño detalle puede cambiar el tono de un día entero.",
   "Que hoy encuentres una razón para sonreír y otra para descansar.",
-  "Pau, cuídate mucho. Quien cuida a otros también merece ser cuidado. 🌷"
+  "Pao, cuídate mucho. Quien cuida a otros también merece ser cuidado. 🌷"
 ];
 
 const hugTexts=["Abrazo recibido. 🫂❤️","Si pudiera, te abrazaría ahora mismo y no te soltaría todavía.","Un abrazo largo, suave y solo para ti. 💕","Imagina mis brazos alrededor de ti. Respira. Ya estás acompañada.","Abrazo virtual enviado con muchísimo cariño. 🫂"];
@@ -324,7 +324,7 @@ abrumada:[
 ["No intentes ordenar toda tu vida en una sola tarde. Empieza por una sola cosa.","Todo tiene su tiempo.","Eclesiastés 3:1"],
 ["Haz una lista mental de una sola prioridad y deja lo demás para después.","Encomienda a Jehová tus obras.","Proverbios 16:3"],
 ["No estás fallando por sentirte sobrepasada. A veces simplemente llevamos demasiado encima.","Mi presencia irá contigo, y te daré descanso.","Éxodo 33:14"],
-["Pausa. Agua. Respiración. Una cosa a la vez. Eso también cuenta como avanzar.","Dios es nuestro amparo y nuestra fuerza.","Salmos 46:1"],
+["Paosa. Agua. Respiración. Una cosa a la vez. Eso también cuenta como avanzar.","Dios es nuestro amparo y nuestra fuerza.","Salmos 46:1"],
 ["No tienes que hacerlo todo sola. Pedir ayuda también es una forma de cuidarte.","Sobrellevad los unos las cargas de los otros.","Gálatas 6:2"]],
 miedo:[
 ["Puedes sentir miedo y aun así dar un pequeño paso. No tienes que sentirte valiente todo el tiempo.","No temas, porque yo estoy contigo.","Isaías 41:10"],
@@ -379,24 +379,24 @@ Object.keys(moreVariety).forEach(k=>messages[k].items.push(...moreVariety[k]));
 
 /* PAU_SUPPORT_MODE */
 const pauSupport={
-feliz:"Pau, disfruta este momento bonito y date permiso de sonreír.",
-triste:"Pau, no tienes que fingir que estás bien. Date permiso de sentir.",
-ansiosa:"Pau, respira despacio. No tienes que resolver todo al mismo tiempo.",
-cansada:"Pau, descansar también es cuidarte. No tienes que poder con todo.",
-enojada:"Pau, está bien sentir enojo. Date un momento antes de reaccionar.",
-sola:"Pau, si necesitas compañía, pedirla está bien. No tienes que cargar sola.",
-orgullosa:"Pau, reconoce tus avances. Tu esfuerzo también merece ser celebrado.",
-amor:"Pau, recuerda que mereces respeto, apoyo y cariño sincero.",
-llorar:"Pau, si necesitas llorar, hazlo. No tienes que esconder lo que sientes.",
-abrumada:"Pau, una cosa a la vez. No tienes que resolverlo todo hoy.",
-miedo:"Pau, tener miedo no significa que no puedas avanzar. Ve paso a paso.",
-pensando:"Pau, tu mente también necesita descanso. No todo pensamiento necesita respuesta.",
-enamorada:"Pau, disfruta lo bonito con calma y sin olvidarte de cuidarte.",
-atencion:"Pau, si necesitas atención o compañía, puedes pedirla.",
-celebrar:"Pau, celebra lo bueno de hoy, incluso si parece pequeño.",
-dormir:"Pau, deja por hoy lo que pueda esperar. Tu cuerpo necesita descansar.",
-paz:"Pau, busca unos minutos de calma y respira sin prisa.",
-tuyo:"Pau, este pequeño mensaje está aquí para recordarte que cuentas con apoyo."
+feliz:"Pao, disfruta este momento bonito y date permiso de sonreír.",
+triste:"Pao, no tienes que fingir que estás bien. Date permiso de sentir.",
+ansiosa:"Pao, respira despacio. No tienes que resolver todo al mismo tiempo.",
+cansada:"Pao, descansar también es cuidarte. No tienes que poder con todo.",
+enojada:"Pao, está bien sentir enojo. Date un momento antes de reaccionar.",
+sola:"Pao, si necesitas compañía, pedirla está bien. No tienes que cargar sola.",
+orgullosa:"Pao, reconoce tus avances. Tu esfuerzo también merece ser celebrado.",
+amor:"Pao, recuerda que mereces respeto, apoyo y cariño sincero.",
+llorar:"Pao, si necesitas llorar, hazlo. No tienes que esconder lo que sientes.",
+abrumada:"Pao, una cosa a la vez. No tienes que resolverlo todo hoy.",
+miedo:"Pao, tener miedo no significa que no puedas avanzar. Ve paso a paso.",
+pensando:"Pao, tu mente también necesita descanso. No todo pensamiento necesita respuesta.",
+enamorada:"Pao, disfruta lo bonito con calma y sin olvidarte de cuidarte.",
+atencion:"Pao, si necesitas atención o compañía, puedes pedirla.",
+celebrar:"Pao, celebra lo bueno de hoy, incluso si parece pequeño.",
+dormir:"Pao, deja por hoy lo que pueda esperar. Tu cuerpo necesita descansar.",
+paz:"Pao, busca unos minutos de calma y respira sin prisa.",
+tuyo:"Pao, este pequeño mensaje está aquí para recordarte que cuentas con apoyo."
 };
 Object.keys(pauSupport).forEach(k=>{
  if(messages[k]){
@@ -406,13 +406,13 @@ Object.keys(pauSupport).forEach(k=>{
    ]);
  }
 });
-document.title="Para Pau 🌷";
+document.title="Para Pao 🌷";
 /* PAU_FULL_SUPPORT_CLEANUP */
-function cleanPauText(v){
+function cleanPaoText(v){
  if(typeof v!=="string") return v;
  return v
- .replace(/mi amor/gi,"Pau")
- .replace(/mi vida/gi,"Pau")
+ .replace(/mi amor/gi,"Pao")
+ .replace(/mi vida/gi,"Pao")
  .replace(/todo mi amor/gi,"todo mi apoyo")
  .replace(/con todo mi amor/gi,"con mucho aprecio")
  .replace(/te quiero/gi,"cuentas con mi apoyo")
@@ -422,12 +422,12 @@ function cleanPauText(v){
  .replace(/nuestro tiempo/gi,"este momento")
  .replace(/nuestros recuerdos/gi,"tus recuerdos");
 }
-function cleanPauCollection(v){
- if(Array.isArray(v)) return v.map(cleanPauCollection);
- if(v&&typeof v==="object") return Object.fromEntries(Object.entries(v).map(([k,val])=>[k,cleanPauCollection(val)]));
- return cleanPauText(v);
+function cleanPaoCollection(v){
+ if(Array.isArray(v)) return v.map(cleanPaoCollection);
+ if(v&&typeof v==="object") return Object.fromEntries(Object.entries(v).map(([k,val])=>[k,cleanPaoCollection(val)]));
+ return cleanPaoText(v);
 }
-if(typeof reasons!=="undefined") reasons=cleanPauCollection(reasons);
-if(typeof personal!=="undefined") personal=cleanPauCollection(personal);
-if(typeof daily!=="undefined") daily=cleanPauCollection(daily);
+if(typeof reasons!=="undefined") reasons=cleanPaoCollection(reasons);
+if(typeof personal!=="undefined") personal=cleanPaoCollection(personal);
+if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
 
