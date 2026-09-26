@@ -228,3 +228,6 @@ body.night .glass-modal-card{background:rgba(35,29,39,.86);border-color:rgba(255
 /* El mensaje aparece únicamente dentro del modal */
 #view-messages>.panel>.message{display:none!important}
 body.modal-open{overflow:hidden}
+
+/* Modal siempre interactivo por encima del contenido */
+.glass-modal{pointer-events:none}.glass-modal.open{pointer-events:auto}.glass-modal-card,.glass-close,.glass-modal-card button{pointer-events:auto}
