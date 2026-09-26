@@ -454,12 +454,12 @@ if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
    currentKey=key;
    currentIndex=(new Date().getDate()-1)%messages[key].items.length;
    display();
-   modal.style.display="flex";
+   modal.classList.add("open");
    modal.setAttribute("aria-hidden","false");
    document.body.classList.add("modal-open");
   }
   function close(){
-   modal.style.display="none";
+   modal.classList.remove("open");
    modal.setAttribute("aria-hidden","true");
    document.body.classList.remove("modal-open");
   }
