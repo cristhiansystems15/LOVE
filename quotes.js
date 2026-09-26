@@ -128,21 +128,28 @@ literaryQuotes.length=0; literaryQuotes.push(...frenchLiteraryQuotes);
 window.addEventListener("DOMContentLoaded",()=>{
  const host=document.getElementById("literaryQuotes");
  if(!host)return;
- const search=document.getElementById("quoteSearch"), author=document.getElementById("quoteAuthor"), book=document.getElementById("quoteBook"), random=document.getElementById("quoteRandom"), count=document.getElementById("quoteCount");
- const authors=[...new Set(literaryQuotes.map(q=>q[1]))].sort((a,b)=>a.localeCompare(b));
- const books=[...new Set(literaryQuotes.map(q=>q[2]))].sort((a,b)=>a.localeCompare(b));
- authors.forEach(a=>author.insertAdjacentHTML("beforeend",'<option>'+a.replaceAll("&","&amp;").replaceAll("<","&lt;")+"</option>"));
- books.forEach(b=>book.insertAdjacentHTML("beforeend",'<option>'+b.replaceAll("&","&amp;").replaceAll("<","&lt;")+"</option>"));
+ const random=document.getElementById("quoteRandom");
+ const count=document.getElementById("quoteCount");
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
- function render(list){
-   count.textContent=list.length+" frases";
-   host.innerHTML=list.map((q,i)=>'<article class="quote-card"><div class="quote-mark">“</div><p>'+esc(q[0])+'</p><footer><strong>'+esc(q[1])+'</strong><span>'+esc(q[2])+'</span></footer></article>').join("")||'<div class="quote-empty">No encontré frases con esos filtros. 🌷</div>';
+ let current=-1, history=[];
+ function show(index,remember=true){
+   if(!literaryQuotes.length)return;
+   current=(index+literaryQuotes.length)%literaryQuotes.length;
+   if(remember && (history.length===0 || history[history.length-1]!==current))history.push(current);
+   const q=literaryQuotes[current];
+   count.textContent="Frase "+(current+1)+" de "+literaryQuotes.length;
+   host.innerHTML='<article class="quote-card quote-featured"><div class="quote-mark">“</div><p>'+esc(q[0])+'</p><footer><strong>'+esc(q[1])+'</strong><span>'+esc(q[2])+'</span></footer></article><div class="quote-navigation"><button id="quotePrev" class="secondary" '+(history.length<2?'disabled':'')+'>← Anterior</button><button id="quoteNext" class="primary">Otra frase →</button></div>';
+   document.getElementById("quotePrev").onclick=()=>{
+     if(history.length>1){history.pop();show(history[history.length-1],false);}
+   };
+   document.getElementById("quoteNext").onclick=()=>show(current+1);
  }
- function filter(){
-   const term=search.value.toLowerCase().trim(), a=author.value, b=book.value;
-   render(literaryQuotes.filter(q=>(!term||q.join(" ").toLowerCase().includes(term))&&(!a||q[1]===a)&&(!b||q[2]===b)));
+ function randomQuote(){
+   let next=Math.floor(Math.random()*literaryQuotes.length);
+   if(literaryQuotes.length>1)while(next===current)next=Math.floor(Math.random()*literaryQuotes.length);
+   show(next);
  }
- search.addEventListener("input",filter); author.addEventListener("change",filter); book.addEventListener("change",filter);
- random.addEventListener("click",()=>{const q=literaryQuotes[Math.floor(Math.random()*literaryQuotes.length)];host.innerHTML='<article class="quote-card quote-featured"><div class="quote-mark">“</div><p>'+esc(q[0])+'</p><footer><strong>'+esc(q[1])+'</strong><span>'+esc(q[2])+'</span></footer></article>';host.scrollIntoView({behavior:"smooth",block:"center"});});
- render(literaryQuotes);
+ if(random)random.onclick=randomQuote;
+ host.innerHTML="";
+ show(Math.floor(Math.random()*literaryQuotes.length));
 });
