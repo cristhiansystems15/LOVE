@@ -431,3 +431,28 @@ if(typeof reasons!=="undefined") reasons=cleanPaoCollection(reasons);
 if(typeof personal!=="undefined") personal=cleanPaoCollection(personal);
 if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
 
+
+/* 💎 Mensajes en ventana de vidrio */
+(function(){
+ function initMessageModal(){
+  var modal=document.getElementById("messageModal"),close=document.getElementById("closeMessageModal");
+  if(!modal)return;
+  var phrase=document.getElementById("phrase"),verse=document.getElementById("verse"),reference=document.getElementById("reference");
+  var modalPhrase=document.getElementById("modalPhrase"),modalVerse=document.getElementById("modalVerse"),modalReference=document.getElementById("modalReference");
+  function openModal(){
+   if(phrase&&modalPhrase)modalPhrase.textContent=phrase.textContent;
+   if(verse&&modalVerse)modalVerse.textContent=verse.textContent;
+   if(reference&&modalReference)modalReference.textContent=reference.textContent;
+   modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");
+  }
+  function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
+  document.querySelectorAll(".emotions button").forEach(function(btn){btn.addEventListener("click",function(){setTimeout(openModal,0)})});
+  if(close)close.addEventListener("click",closeModal);
+  modal.addEventListener("click",function(e){if(e.target.hasAttribute("data-close-modal"))closeModal()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open"))closeModal()});
+  var another=document.getElementById("modalAnother"),surprise=document.getElementById("modalSurprise");
+  if(another&&document.getElementById("another"))another.onclick=function(){document.getElementById("another").click();setTimeout(openModal,0)};
+  if(surprise&&document.getElementById("surprise"))surprise.onclick=function(){document.getElementById("surprise").click();setTimeout(openModal,0)};
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMessageModal);else initMessageModal();
+})();
