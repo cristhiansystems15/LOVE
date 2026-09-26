@@ -122,34 +122,28 @@ const literaryQuotes = [
 ["La felicidad no es una estación a la que se llega, sino una manera de viajar.","Marguerite Yourcenar","Œuvres"],
 ["El silencio es también una forma de conversación.","Marguerite Yourcenar","Œuvres"]
 ];
-const nonFrenchAuthors=new Set(["Khalil Gibran","William Shakespeare","Rainer Maria Rilke","Stéphane Mallarmé","Francis Bacon","Henryk Sienkiewicz","David Hume","Robert Ingersoll","Noel Coward"]);
-const frenchLiteraryQuotes=literaryQuotes.filter(q=>!nonFrenchAuthors.has(q[1]));
-literaryQuotes.length=0; literaryQuotes.push(...frenchLiteraryQuotes);
+
+// 🌍 Ampliación: literatura y pensamiento de distintas partes del mundo, presentada en español.
+const worldLiteraryQuotes=[["El amor no mira con los ojos, sino con el alma.","William Shakespeare","Sueño de una noche de verano"],["Es mejor haber amado y perdido que jamás haber amado.","Alfred Lord Tennyson","In Memoriam"],["La esperanza es el sueño del hombre despierto.","Aristóteles","Obras"],["Quien tiene un porqué para vivir puede soportar casi cualquier cómo.","Friedrich Nietzsche","El crepúsculo de los ídolos"],["La vida debe ser comprendida hacia atrás. Pero debe ser vivida hacia adelante.","Søren Kierkegaard","Diarios"],["Todo lo que puedes imaginar es real.","Pablo Picasso","Atribuida"],["La belleza salvará al mundo.","Fiódor Dostoyevski","El idiota"],["El corazón tiene razones que la razón no entiende.","Blaise Pascal","Pensamientos"],["La música expresa aquello que no puede decirse con palabras.","Victor Hugo","Obras"],["No hay caminos para la paz; la paz es el camino.","Mahatma Gandhi","Atribuida"],["La libertad es siempre libertad para quien piensa diferente.","Rosa Luxemburgo","La revolución rusa"],["La paciencia es amarga, pero su fruto es dulce.","Jean-Jacques Rousseau","Emilio"],["La imaginación es más importante que el conocimiento.","Albert Einstein","Atribuida"],["La vida es realmente sencilla, pero insistimos en hacerla complicada.","Confucio","Analectas"],["La alegría no está en las cosas, está en nosotros.","Johann Wolfgang von Goethe","Obras"],["El amor es la poesía de los sentidos.","Honoré de Balzac","Obras"],["A veces el corazón ve lo que es invisible para los ojos.","Antoine de Saint-Exupéry","El Principito"],["Solo se ve bien con el corazón.","Antoine de Saint-Exupéry","El Principito"],["Lo esencial es invisible a los ojos.","Antoine de Saint-Exupéry","El Principito"],["La vida es una flor de la que el amor es la miel.","Victor Hugo","Obras"],["La felicidad depende de nosotros mismos.","Aristóteles","Ética a Nicómaco"],["El amor es la ausencia de juicio.","Dalai Lama","Enseñanzas"],["Donde hay amor hay vida.","Mahatma Gandhi","Atribuida"],["No llores porque terminó; sonríe porque sucedió.","Atribuida","Tradición literaria"],["El futuro pertenece a quienes creen en la belleza de sus sueños.","Eleanor Roosevelt","Atribuida"],["Después de todo, mañana será otro día.","Margaret Mitchell","Lo que el viento se llevó"],["Era el mejor de los tiempos, era el peor de los tiempos.","Charles Dickens","Historia de dos ciudades"],["Llámame Ismael.","Herman Melville","Moby-Dick"],["Todos los animales son iguales, pero algunos animales son más iguales que otros.","George Orwell","Rebelión en la granja"],["La única manera de hacer un amigo es serlo.","Ralph Waldo Emerson","Ensayos"],["El misterio de la vida no es un problema que resolver, sino una realidad que experimentar.","Albert Einstein","Atribuida"],["La noche es larga para quien espera.","William Shakespeare","Macbeth"],["El amor todo lo vence.","Virgilio","Églogas"],["Mientras haya vida, hay esperanza.","Proverbio latino","Tradición clásica"],["El destino mezcla las cartas y nosotros jugamos.","Arthur Schopenhauer","Parerga y Paralipómena"],["El tiempo es un gran autor, siempre encuentra un final perfecto.","Charles Chaplin","Atribuida"],["La poesía es verdad que se vuelve hermosa.","Robert Frost","A New Hampshire"],["La tierra tiene música para quienes escuchan.","William Shakespeare","El mercader de Venecia"]];
+literaryQuotes.push(...worldLiteraryQuotes);
 window.addEventListener("DOMContentLoaded",()=>{
  const host=document.getElementById("literaryQuotes");
  if(!host)return;
  const random=document.getElementById("quoteRandom");
  const count=document.getElementById("quoteCount");
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
- let current=-1, history=[];
- function show(index,remember=true){
-   if(!literaryQuotes.length)return;
-   current=(index+literaryQuotes.length)%literaryQuotes.length;
-   if(remember && (history.length===0 || history[history.length-1]!==current))history.push(current);
-   const q=literaryQuotes[current];
-   count.textContent="Frase "+(current+1)+" de "+literaryQuotes.length;
-   host.innerHTML='<article class="quote-card quote-featured"><div class="quote-mark">“</div><p>'+esc(q[0])+'</p><footer><strong>'+esc(q[1])+'</strong><span>'+esc(q[2])+'</span></footer></article><div class="quote-navigation"><button id="quotePrev" class="secondary" '+(history.length<2?'disabled':'')+'>← Anterior</button><button id="quoteNext" class="primary">Otra frase →</button></div>';
-   document.getElementById("quotePrev").onclick=()=>{
-     if(history.length>1){history.pop();show(history[history.length-1],false);}
-   };
-   document.getElementById("quoteNext").onclick=()=>show(current+1);
+ let current=-1,history=[];
+ function render(index,remember=true){
+  if(!literaryQuotes.length)return;
+  current=(index+literaryQuotes.length)%literaryQuotes.length;
+  if(remember && history[history.length-1]!==current)history.push(current);
+  const q=literaryQuotes[current];
+  count.textContent="Frase "+(current+1)+" de "+literaryQuotes.length;
+  host.innerHTML='<article class="quote-card quote-featured"><div class="quote-mark">“</div><p>'+esc(q[0])+'</p><footer><strong>'+esc(q[1])+'</strong><span>'+esc(q[2])+'</span></footer></article><div class="quote-navigation"><button id="quotePrev" class="secondary" '+(history.length<2?'disabled':'')+'>← Anterior</button><button id="quoteNext" class="primary">Otra frase →</button></div>';
+  document.getElementById("quotePrev").onclick=()=>{if(history.length>1){history.pop();render(history[history.length-1],false);}};
+  document.getElementById("quoteNext").onclick=()=>render(current+1);
  }
- function randomQuote(){
-   let next=Math.floor(Math.random()*literaryQuotes.length);
-   if(literaryQuotes.length>1)while(next===current)next=Math.floor(Math.random()*literaryQuotes.length);
-   show(next);
- }
+ function randomQuote(){let next=Math.floor(Math.random()*literaryQuotes.length);if(literaryQuotes.length>1)while(next===current)next=Math.floor(Math.random()*literaryQuotes.length);render(next);}
  if(random)random.onclick=randomQuote;
- host.innerHTML="";
- show(Math.floor(Math.random()*literaryQuotes.length));
+ render(Math.floor(Math.random()*literaryQuotes.length));
 });
