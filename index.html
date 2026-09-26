@@ -42,7 +42,23 @@
 <section class="panel letter"><h2>Unas palabras para ti 🌷</h2><p>No hace falta que estés feliz todo el tiempo. Hay días para avanzar, días para descansar, días para llorar y días para celebrar.</p><p><b>Si algún día necesitas una palabra de ánimo, un momento de calma o simplemente recordar que tu esfuerzo vale, vuelve aquí.</b></p><p>Cuídate mucho, Pao. Y no olvides que quien cuida a los demás también merece ser cuidado.</p><div class="signature">Con mucho aprecio 🌷</div></section>
 <section class="panel feature support-contact"><div class="section-kicker">Siempre puedes contar conmigo</div><h2>Desde ahora estaré para ti</h2><p class="center">Cuando necesites hablar, desahogarte, pedir apoyo o simplemente sentir que alguien está ahí, puedes escribirme o llamarme.</p><div class="support-number">📱 <strong>9677-5363</strong></div><div class="contact-actions"><a class="primary contact-btn" href="tel:+50496775363">📞 Llamar</a><a class="secondary contact-btn" href="https://wa.me/50496775363" target="_blank" rel="noopener">💬 WhatsApp</a></div></section>
 </div>
-</main><script src="script.js"></script><script src="quotes.js?v=4"></script><script>
+</main><script src="script.js"></script><script>
+(function(){
+ function initAppNavigation(){
+  var buttons=document.querySelectorAll(".menu-card"),views=document.querySelectorAll(".app-view");
+  if(!buttons.length)return;
+  buttons.forEach(function(btn){
+   btn.addEventListener("click",function(){
+    var target=btn.getAttribute("data-view");
+    buttons.forEach(function(b){b.classList.toggle("active",b===btn);});
+    views.forEach(function(v){v.classList.toggle("active-view",v.id==="view-"+target);});
+    window.scrollTo({top:0,behavior:"smooth"});
+   });
+  });
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAppNavigation);else initAppNavigation();
+})();
+</script><script src="quotes.js?v=4"></script><script>
 (function(){
   var welcome=document.getElementById("welcome");
   var enter=document.getElementById("enter");
