@@ -231,3 +231,6 @@ body.modal-open{overflow:hidden}
 
 /* Modal siempre interactivo por encima del contenido */
 .glass-modal{pointer-events:none}.glass-modal.open{pointer-events:auto}.glass-modal-card,.glass-close,.glass-modal-card button{pointer-events:auto}
+
+/* 🔒 El modal controla su propia visibilidad */
+.glass-modal{display:none!important}.glass-modal[aria-hidden="false"]{display:flex!important}
