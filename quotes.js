@@ -122,6 +122,9 @@ const literaryQuotes = [
 ["La felicidad no es una estación a la que se llega, sino una manera de viajar.","Marguerite Yourcenar","Œuvres"],
 ["El silencio es también una forma de conversación.","Marguerite Yourcenar","Œuvres"]
 ];
+const nonFrenchAuthors=new Set(["Khalil Gibran","William Shakespeare","Rainer Maria Rilke","Stéphane Mallarmé","Francis Bacon","Henryk Sienkiewicz","David Hume","Robert Ingersoll","Noel Coward"]);
+const frenchLiteraryQuotes=literaryQuotes.filter(q=>!nonFrenchAuthors.has(q[1]));
+literaryQuotes.length=0; literaryQuotes.push(...frenchLiteraryQuotes);
 window.addEventListener("DOMContentLoaded",()=>{
  const host=document.getElementById("literaryQuotes");
  if(!host)return;
