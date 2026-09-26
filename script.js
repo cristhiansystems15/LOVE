@@ -464,13 +464,35 @@ if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
    document.body.classList.remove("modal-open");
   }
 
-  document.querySelectorAll("[data-emotion]").forEach(function(button){
-   button.addEventListener("click",function(e){
+  document.addEventListener("click",function(e){
+   var button=e.target.closest("[data-emotion]");
+   if(button){
     e.preventDefault();
-    e.stopImmediatePropagation();
+    e.stopPropagation();
     open(button.dataset.emotion);
-   },true);
-  });
+    return;
+   }
+   if(e.target.closest("#modalAnother")){
+    e.preventDefault();
+    e.stopPropagation();
+    if(currentKey){currentIndex++;display();}
+    return;
+   }
+   if(e.target.closest("#modalSurprise")){
+    e.preventDefault();
+    e.stopPropagation();
+    var keys=Object.keys(messages);
+    currentKey=keys[Math.floor(Math.random()*keys.length)];
+    currentIndex=Math.floor(Math.random()*messages[currentKey].items.length);
+    display();
+    return;
+   }
+   if(e.target.closest("#closeMessageModal") || e.target.closest("[data-close-modal]")){
+    e.preventDefault();
+    e.stopPropagation();
+    close();
+   }
+  },true);
 
   document.getElementById("modalAnother").onclick=function(e){
    e.preventDefault();e.stopPropagation();
