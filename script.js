@@ -432,66 +432,70 @@ if(typeof personal!=="undefined") personal=cleanPaoCollection(personal);
 if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
 
 
-/* 💎 Mensajes en ventana de vidrio — controlador independiente */
+/* 💎 Modal de mensajes */
 (function(){
- function initMessageModal(){
+ function init(){
   var modal=document.getElementById("messageModal");
   if(!modal)return;
-  var close=document.getElementById("closeMessageModal");
-  var modalPhrase=document.getElementById("modalPhrase");
-  var modalVerse=document.getElementById("modalVerse");
-  var modalReference=document.getElementById("modalReference");
-  var modalAnother=document.getElementById("modalAnother");
-  var modalSurprise=document.getElementById("modalSurprise");
-  var selectedKey=null,selectedIndex=0;
+  var phrase=document.getElementById("modalPhrase");
+  var verse=document.getElementById("modalVerse");
+  var reference=document.getElementById("modalReference");
+  var currentKey="", currentIndex=0;
 
-  function sync(){
-   if(!selectedKey||!messages[selectedKey])return;
-   var item=messages[selectedKey].items[selectedIndex];
-   modalPhrase.textContent=item[0];
-   modalVerse.textContent="“"+item[1]+"”";
-   modalReference.textContent=item[2];
+  function display(){
+   if(!currentKey || !messages[currentKey])return;
+   var list=messages[currentKey].items;
+   currentIndex=(currentIndex+list.length)%list.length;
+   phrase.textContent=list[currentIndex][0];
+   verse.textContent="“"+list[currentIndex][1]+"”";
+   reference.textContent=list[currentIndex][2];
   }
   function open(key){
-   if(key){selectedKey=key;selectedIndex=(new Date().getDate()-1)%messages[key].items.length;}
-   sync();
-   modal.classList.add("open");
+   currentKey=key;
+   currentIndex=(new Date().getDate()-1)%messages[key].items.length;
+   display();
+   modal.style.display="flex";
    modal.setAttribute("aria-hidden","false");
    document.body.classList.add("modal-open");
   }
   function close(){
-   modal.classList.remove("open");
+   modal.style.display="none";
    modal.setAttribute("aria-hidden","true");
    document.body.classList.remove("modal-open");
   }
 
-  document.querySelectorAll("[data-emotion]").forEach(function(btn){
-   btn.addEventListener("click",function(){open(btn.getAttribute("data-emotion"));});
+  document.querySelectorAll("[data-emotion]").forEach(function(button){
+   button.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    open(button.dataset.emotion);
+   },true);
   });
 
-  if(close)close.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();close();});
-  modal.querySelector(".glass-modal-backdrop").addEventListener("click",close);
-
-  if(modalAnother)modalAnother.addEventListener("click",function(e){
+  document.getElementById("modalAnother").onclick=function(e){
    e.preventDefault();e.stopPropagation();
-   if(selectedKey&&messages[selectedKey]){
-    selectedIndex=(selectedIndex+1)%messages[selectedKey].items.length;
-    sync();
+   if(currentKey){
+    currentIndex++;
+    display();
    }
-  });
-
-  if(modalSurprise)modalSurprise.addEventListener("click",function(e){
+  };
+  document.getElementById("modalSurprise").onclick=function(e){
    e.preventDefault();e.stopPropagation();
    var keys=Object.keys(messages);
-   selectedKey=keys[Math.floor(Math.random()*keys.length)];
-   selectedIndex=(new Date().getDate()-1)%messages[selectedKey].items.length;
-   sync();
-  });
-
+   currentKey=keys[Math.floor(Math.random()*keys.length)];
+   currentIndex=Math.floor(Math.random()*messages[currentKey].items.length);
+   display();
+  };
+  document.getElementById("closeMessageModal").onclick=function(e){
+   e.preventDefault();e.stopPropagation();close();
+  };
+  modal.querySelector(".glass-modal-backdrop").onclick=function(e){
+   e.preventDefault();close();
+  };
   document.addEventListener("keydown",function(e){
-   if(e.key==="Escape"&&modal.classList.contains("open"))close();
+   if(e.key==="Escape"&&modal.getAttribute("aria-hidden")==="false")close();
   });
  }
- if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMessageModal);
- else initMessageModal();
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
+ else init();
 })();
