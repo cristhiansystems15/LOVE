@@ -432,7 +432,7 @@ if(typeof personal!=="undefined") personal=cleanPaoCollection(personal);
 if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
 
 
-/* 💎 Mensajes en ventana de vidrio */
+/* 💎 Mensajes en ventana de vidrio — controlador independiente */
 (function(){
  function initMessageModal(){
   var modal=document.getElementById("messageModal");
@@ -443,52 +443,53 @@ if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
   var modalReference=document.getElementById("modalReference");
   var modalAnother=document.getElementById("modalAnother");
   var modalSurprise=document.getElementById("modalSurprise");
+  var selectedKey=null,selectedIndex=0;
 
   function sync(){
-   modalPhrase.textContent=document.getElementById("phrase").textContent;
-   modalVerse.textContent=document.getElementById("verse").textContent;
-   modalReference.textContent=document.getElementById("reference").textContent;
+   if(!selectedKey||!messages[selectedKey])return;
+   var item=messages[selectedKey].items[selectedIndex];
+   modalPhrase.textContent=item[0];
+   modalVerse.textContent="“"+item[1]+"”";
+   modalReference.textContent=item[2];
   }
-  function openModal(){
+  function open(key){
+   if(key){selectedKey=key;selectedIndex=(new Date().getDate()-1)%messages[key].items.length;}
    sync();
    modal.classList.add("open");
    modal.setAttribute("aria-hidden","false");
    document.body.classList.add("modal-open");
   }
-  function closeModal(){
+  function close(){
    modal.classList.remove("open");
    modal.setAttribute("aria-hidden","true");
    document.body.classList.remove("modal-open");
   }
 
   document.querySelectorAll("[data-emotion]").forEach(function(btn){
-   btn.addEventListener("click",function(){
-    setTimeout(openModal,0);
-   });
+   btn.addEventListener("click",function(){open(btn.getAttribute("data-emotion"));});
   });
 
-  if(close)close.addEventListener("click",closeModal);
-  modal.addEventListener("click",function(e){
-   if(e.target.hasAttribute("data-close-modal"))closeModal();
-  });
+  if(close)close.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();close();});
+  modal.querySelector(".glass-modal-backdrop").addEventListener("click",close);
 
-  if(modalAnother)modalAnother.addEventListener("click",function(){
-   if(typeof current!=="undefined" && current!==null){
-    index=(index+1)%messages[current].items.length;
-    render();
+  if(modalAnother)modalAnother.addEventListener("click",function(e){
+   e.preventDefault();e.stopPropagation();
+   if(selectedKey&&messages[selectedKey]){
+    selectedIndex=(selectedIndex+1)%messages[selectedKey].items.length;
     sync();
    }
   });
 
-  if(modalSurprise)modalSurprise.addEventListener("click",function(){
+  if(modalSurprise)modalSurprise.addEventListener("click",function(e){
+   e.preventDefault();e.stopPropagation();
    var keys=Object.keys(messages);
-   var k=keys[Math.floor(Math.random()*keys.length)];
-   show(k);
+   selectedKey=keys[Math.floor(Math.random()*keys.length)];
+   selectedIndex=(new Date().getDate()-1)%messages[selectedKey].items.length;
    sync();
   });
 
   document.addEventListener("keydown",function(e){
-   if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+   if(e.key==="Escape"&&modal.classList.contains("open"))close();
   });
  }
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMessageModal);
