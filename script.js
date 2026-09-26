@@ -56,7 +56,7 @@ messages.amor.items.push(
 ["Entre tantas personas y tantos caminos, qué bonito coincidir contigo.","Las muchas aguas no podrán apagar el amor.","Cantares 8:7"],
 ["Guarda este mensaje para esos días en los que necesites una prueba sencilla de mi cariño: te quiero muchísimo. ❤️","Sobre todas estas cosas vestíos de amor.","Colosenses 3:14"]
 );
-let current=null,index=0;const todayIndex=()=>new Date().getDate()-1;const $=id=>document.getElementById(id);function render(){const x=messages[current].items[index];$('label').textContent=messages[current].label;$('phrase').textContent=x[0];$('verse').textContent='“'+x[1]+'”';$('reference').textContent=x[2];$('another').hidden=false}function show(k){current=k;index=todayIndex()%messages[k].items.length;render()}document.querySelectorAll('[data-emotion]').forEach(b=>b.onclick=()=>{show(b.dataset.emotion);var m=document.getElementById("messageModal"),p=document.getElementById("modalPhrase"),v=document.getElementById("modalVerse"),ref=document.getElementById("modalReference");if(m){p.textContent=$("phrase").textContent;v.textContent=$("verse").textContent;ref.textContent=$("reference").textContent;m.classList.add("open");m.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");}});$('another').onclick=()=>{index=(index+1)%messages[current].items.length;render()};$('surprise').onclick=()=>{const k=Object.keys(messages);show(k[Math.floor(Math.random()*k.length)]);document.querySelector('.message').scrollIntoView({behavior:'smooth',block:'center'})};
+let current=null,index=0;const todayIndex=()=>new Date().getDate()-1;const $=id=>document.getElementById(id);function render(){const x=messages[current].items[index];$('label').textContent=messages[current].label;$('phrase').textContent=x[0];$('verse').textContent='“'+x[1]+'”';$('reference').textContent=x[2];$('another').hidden=false}function show(k){current=k;index=todayIndex()%messages[k].items.length;render()}$('another').onclick=()=>{index=(index+1)%messages[current].items.length;render()};$('surprise').onclick=()=>{const k=Object.keys(messages);show(k[Math.floor(Math.random()*k.length)]);document.querySelector('.message').scrollIntoView({behavior:'smooth',block:'center'})};
 const extraMessages={
 llorar:{label:"Llora si lo necesitas",items:[
 ["Si necesitas llorar, llora. No tienes que esconder lo que sientes. Después de la lluvia también vuelve la calma.","Echa sobre Jehová tu carga, y él te sustentará.","Salmos 55:22"],
@@ -430,94 +430,3 @@ function cleanPaoCollection(v){
 if(typeof reasons!=="undefined") reasons=cleanPaoCollection(reasons);
 if(typeof personal!=="undefined") personal=cleanPaoCollection(personal);
 if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
-
-
-/* 💎 Modal de mensajes */
-(function(){
- function init(){
-  var modal=document.getElementById("messageModal");
-  if(!modal)return;
-  var phrase=document.getElementById("modalPhrase");
-  var verse=document.getElementById("modalVerse");
-  var reference=document.getElementById("modalReference");
-  var currentKey="", currentIndex=0;
-
-  function display(){
-   if(!currentKey || !messages[currentKey])return;
-   var list=messages[currentKey].items;
-   currentIndex=(currentIndex+list.length)%list.length;
-   phrase.textContent=list[currentIndex][0];
-   verse.textContent="“"+list[currentIndex][1]+"”";
-   reference.textContent=list[currentIndex][2];
-  }
-  function open(key){
-   currentKey=key;
-   currentIndex=(new Date().getDate()-1)%messages[key].items.length;
-   display();
-   modal.classList.add("open");
-   modal.setAttribute("aria-hidden","false");
-   document.body.classList.add("modal-open");
-  }
-  function close(){
-   modal.classList.remove("open");
-   modal.setAttribute("aria-hidden","true");
-   document.body.classList.remove("modal-open");
-  }
-
-  document.addEventListener("click",function(e){
-   var button=e.target.closest("[data-emotion]");
-   if(button){
-    e.preventDefault();
-    e.stopPropagation();
-    open(button.dataset.emotion);
-    return;
-   }
-   if(e.target.closest("#modalAnother")){
-    e.preventDefault();
-    e.stopPropagation();
-    if(currentKey){currentIndex++;display();}
-    return;
-   }
-   if(e.target.closest("#modalSurprise")){
-    e.preventDefault();
-    e.stopPropagation();
-    var keys=Object.keys(messages);
-    currentKey=keys[Math.floor(Math.random()*keys.length)];
-    currentIndex=Math.floor(Math.random()*messages[currentKey].items.length);
-    display();
-    return;
-   }
-   if(e.target.closest("#closeMessageModal") || e.target.closest("[data-close-modal]")){
-    e.preventDefault();
-    e.stopPropagation();
-    close();
-   }
-  },true);
-
-  document.getElementById("modalAnother").onclick=function(e){
-   e.preventDefault();e.stopPropagation();
-   if(currentKey){
-    currentIndex++;
-    display();
-   }
-  };
-  document.getElementById("modalSurprise").onclick=function(e){
-   e.preventDefault();e.stopPropagation();
-   var keys=Object.keys(messages);
-   currentKey=keys[Math.floor(Math.random()*keys.length)];
-   currentIndex=Math.floor(Math.random()*messages[currentKey].items.length);
-   display();
-  };
-  document.getElementById("closeMessageModal").onclick=function(e){
-   e.preventDefault();e.stopPropagation();close();
-  };
-  modal.querySelector(".glass-modal-backdrop").onclick=function(e){
-   e.preventDefault();close();
-  };
-  document.addEventListener("keydown",function(e){
-   if(e.key==="Escape"&&modal.getAttribute("aria-hidden")==="false")close();
-  });
- }
- if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
- else init();
-})();
