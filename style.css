@@ -198,3 +198,22 @@ body.night .quote-tools input,body.night .quote-tools select,body.night .quote-c
 @keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media(max-width:620px){.app-menu{grid-template-columns:1fr 1fr;gap:10px}.menu-card{padding:16px 12px;border-radius:18px}.menu-card span{font-size:1.6rem}.menu-card strong{font-size:.82rem}.menu-card small{font-size:.67rem}}
 body.night .menu-card{background:#211d27;border-color:#443b4b}body.night .menu-card.active{background:#2b222a}
+
+/* 📱 Ajustes móviles y botones */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+input,textarea,select,button{font-size:16px}
+button,.menu-card,.primary,.secondary,.hug-btn,.icon-btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.primary,.secondary{min-height:48px;padding:12px 20px;border-radius:15px;font-weight:700;letter-spacing:.01em;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}
+.primary{box-shadow:0 7px 18px rgba(116,48,77,.15)}
+.secondary{box-shadow:0 5px 15px rgba(116,48,77,.08)}
+.primary:hover,.secondary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(116,48,77,.18)}
+.primary:active,.secondary:active,.menu-card:active,.hug-btn:active{transform:scale(.97)}
+.primary:focus-visible,.secondary:focus-visible,.menu-card:focus-visible{outline:3px solid #e8a7bd;outline-offset:3px}
+.quote-random-main{min-width:210px}
+.quote-navigation button{min-width:145px}
+@media(max-width:620px){
+ .primary,.secondary{width:100%;max-width:340px}
+ .quote-navigation{flex-direction:column;align-items:center}
+ .quote-navigation button{width:100%;max-width:340px}
+ .menu-card{min-height:92px}
+}
