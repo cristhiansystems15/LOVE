@@ -90,4 +90,96 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
 </script>
+<script>
+(function(){
+  function initMessageModal(){
+    var modal=document.getElementById("messageModal");
+    if(!modal || typeof messages==="undefined") return;
+
+    var phrase=document.getElementById("modalPhrase");
+    var verse=document.getElementById("modalVerse");
+    var reference=document.getElementById("modalReference");
+    var closeBtn=document.getElementById("closeMessageModal");
+    var nextBtn=document.getElementById("modalAnother");
+    var surpriseBtn=document.getElementById("modalSurprise");
+    var backdrop=modal.querySelector(".glass-modal-backdrop");
+    var currentKey=null;
+    var currentIndex=0;
+
+    function paint(){
+      if(!currentKey || !messages[currentKey]) return;
+      var list=messages[currentKey].items;
+      currentIndex=((currentIndex%list.length)+list.length)%list.length;
+      phrase.textContent=list[currentIndex][0];
+      verse.textContent="“"+list[currentIndex][1]+"”";
+      reference.textContent=list[currentIndex][2];
+    }
+
+    function openMessage(key){
+      if(!messages[key]) return;
+      currentKey=key;
+      currentIndex=(new Date().getDate()-1)%messages[key].items.length;
+      paint();
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeMessage(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function nextMessage(){
+      if(!currentKey) return;
+      currentIndex++;
+      paint();
+    }
+
+    function surprise(){
+      var keys=Object.keys(messages);
+      currentKey=keys[Math.floor(Math.random()*keys.length)];
+      currentIndex=Math.floor(Math.random()*messages[currentKey].items.length);
+      paint();
+    }
+
+    document.querySelectorAll("[data-emotion]").forEach(function(btn){
+      btn.addEventListener("click",function(e){
+        e.preventDefault();
+        openMessage(btn.getAttribute("data-emotion"));
+      });
+    });
+
+    nextBtn.addEventListener("click",function(e){
+      e.preventDefault();
+      nextMessage();
+    });
+
+    surpriseBtn.addEventListener("click",function(e){
+      e.preventDefault();
+      surprise();
+    });
+
+    closeBtn.addEventListener("click",function(e){
+      e.preventDefault();
+      closeMessage();
+    });
+
+    backdrop.addEventListener("click",function(){
+      closeMessage();
+    });
+
+    document.addEventListener("keydown",function(e){
+      if(e.key==="Escape") closeMessage();
+    });
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",initMessageModal);
+  }else{
+    initMessageModal();
+  }
+})();
+</script>
 </body></html>
