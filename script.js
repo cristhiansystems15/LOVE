@@ -435,24 +435,62 @@ if(typeof daily!=="undefined") daily=cleanPaoCollection(daily);
 /* 💎 Mensajes en ventana de vidrio */
 (function(){
  function initMessageModal(){
-  var modal=document.getElementById("messageModal"),close=document.getElementById("closeMessageModal");
+  var modal=document.getElementById("messageModal");
   if(!modal)return;
-  var phrase=document.getElementById("phrase"),verse=document.getElementById("verse"),reference=document.getElementById("reference");
-  var modalPhrase=document.getElementById("modalPhrase"),modalVerse=document.getElementById("modalVerse"),modalReference=document.getElementById("modalReference");
-  function openModal(){
-   if(phrase&&modalPhrase)modalPhrase.textContent=phrase.textContent;
-   if(verse&&modalVerse)modalVerse.textContent=verse.textContent;
-   if(reference&&modalReference)modalReference.textContent=reference.textContent;
-   modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");
+  var close=document.getElementById("closeMessageModal");
+  var modalPhrase=document.getElementById("modalPhrase");
+  var modalVerse=document.getElementById("modalVerse");
+  var modalReference=document.getElementById("modalReference");
+  var modalAnother=document.getElementById("modalAnother");
+  var modalSurprise=document.getElementById("modalSurprise");
+
+  function sync(){
+   modalPhrase.textContent=document.getElementById("phrase").textContent;
+   modalVerse.textContent=document.getElementById("verse").textContent;
+   modalReference.textContent=document.getElementById("reference").textContent;
   }
-  function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
-  document.querySelectorAll(".emotions button").forEach(function(btn){btn.addEventListener("click",function(){setTimeout(openModal,0)})});
+  function openModal(){
+   sync();
+   modal.classList.add("open");
+   modal.setAttribute("aria-hidden","false");
+   document.body.classList.add("modal-open");
+  }
+  function closeModal(){
+   modal.classList.remove("open");
+   modal.setAttribute("aria-hidden","true");
+   document.body.classList.remove("modal-open");
+  }
+
+  document.querySelectorAll("[data-emotion]").forEach(function(btn){
+   btn.addEventListener("click",function(){
+    setTimeout(openModal,0);
+   });
+  });
+
   if(close)close.addEventListener("click",closeModal);
-  modal.addEventListener("click",function(e){if(e.target.hasAttribute("data-close-modal"))closeModal()});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open"))closeModal()});
-  var another=document.getElementById("modalAnother"),surprise=document.getElementById("modalSurprise");
-  if(another&&document.getElementById("another"))another.onclick=function(){document.getElementById("another").click();setTimeout(openModal,0)};
-  if(surprise&&document.getElementById("surprise"))surprise.onclick=function(){document.getElementById("surprise").click();setTimeout(openModal,0)};
+  modal.addEventListener("click",function(e){
+   if(e.target.hasAttribute("data-close-modal"))closeModal();
+  });
+
+  if(modalAnother)modalAnother.addEventListener("click",function(){
+   if(typeof current!=="undefined" && current!==null){
+    index=(index+1)%messages[current].items.length;
+    render();
+    sync();
+   }
+  });
+
+  if(modalSurprise)modalSurprise.addEventListener("click",function(){
+   var keys=Object.keys(messages);
+   var k=keys[Math.floor(Math.random()*keys.length)];
+   show(k);
+   sync();
+  });
+
+  document.addEventListener("keydown",function(e){
+   if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+  });
  }
- if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMessageModal);else initMessageModal();
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMessageModal);
+ else initMessageModal();
 })();
